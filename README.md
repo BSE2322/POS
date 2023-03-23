@@ -8,11 +8,14 @@ This repository contains source code for a mock Point of Sale system implemented
 The project has the following directory structure.
 
 ```bash
-src/main/java
-src/test/java
+assets/styles/style.css
+assets/main.js
+assets/main.ts
+index.html
+products.html
 .gitignore
 LICENSE
 README.md
 ```
 
-The `src/main/java` will contain the business logic related java files and classes and the `src/test/java` will contain the unit test java files and classes
+The `assets/main.ts` contains the main business logic and implemented design patterns while `assets/main.ts` is the transpiled version of `main.ts`
