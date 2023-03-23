@@ -1,0 +1,22 @@
+.navbar{
+    display: flex;
+    justify-content: end;
+}
+
+.nav-item{
+    margin: 1em;
+    text-decoration: none;
+}
+
+.product-heading{
+    text-align: center;
+}
+
+.form-div{
+    display: flex;
+    justify-content: center;
+}
+
+input{
+    margin: 0.5em;
+}
