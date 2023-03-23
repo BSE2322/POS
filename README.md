@@ -8,11 +8,11 @@ This repository contains source code for a mock Point of Sale system implemented
 The project has the following directory structure.
 
 ```bash
-assets/styles/style.css
-assets/main.js
-assets/main.ts
-index.html
-products.html
+POS_UI/assets/styles/style.css
+POS_UI/assets/main.js
+POS_UI/assets/main.ts
+POS_UI/index.html
+POS_UI/products.html
 .gitignore
 LICENSE
 README.md
