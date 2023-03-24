@@ -32,6 +32,10 @@
     window.addEventListener("load",()=>{
         console.log("Document Loaded");
         var products = JSON.parse(localStorage.getItem("products"));
+        if(products.length == 0){
+            window.alert("Stock is empty");
+            return
+        }
         console.log(products)
         products.forEach(element => {
             console.log(element.name)

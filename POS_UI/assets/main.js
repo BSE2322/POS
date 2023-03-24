@@ -118,3 +118,38 @@ var addProduct = function () {
     product.addProduct();
     window.location.href = "http://localhost:8000/products.html";
 };
+var isProduct = function (obj) {
+    return (
+    // @ts-ignore
+    "name" in obj && typeof obj.name == "string" &&
+        // @ts-ignore
+        "type" in obj && typeof obj.type == "string" &&
+        "price" in obj && typeof obj.price == "number" &&
+        "quantity" in obj && typeof obj.quantity == "number");
+};
+var testSetuP = function () {
+    console.log("Run tests");
+    // create Clothig
+    var clothing = productFactory("Gucci", "Clothing", 30000, 90);
+    var electronic = productFactory("Macbook Pro", "Electronic", 4000000, 80);
+    var food = productFactory("Mandazi", "Groceries", 400, 30);
+    if (isProduct(clothing)) {
+        console.log("Test Clothing conforms to specification");
+    }
+    else {
+        alert("Tests failed");
+    }
+    if (isProduct(electronic)) {
+        console.log("Test Electronic conforms to specification");
+    }
+    else {
+        alert("Tests failed");
+    }
+    if (isProduct(food)) {
+        console.log("Test Grocery conforms to specification");
+    }
+    else {
+        alert("Tests failed");
+    }
+};
+testSetuP();
