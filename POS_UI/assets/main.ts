@@ -8,6 +8,30 @@ interface Product{
     removeProduct();
 }
 
+class ProductCatalog{
+    private static catalog:ProductCatalog;
+    private constructor(){
+        // window.localStorage.setItem("products",JSON.stringify([]))
+        console.log("Initialised object store in localStorage");
+        console.log(localStorage.getItem("products"));
+    }
+
+    static getInstance(){
+        if(this.catalog == null){
+            return new ProductCatalog();
+        }
+        return this.catalog;
+    }
+
+    saveProduct(product:Product){
+        // save product
+        // @ts-ignore
+        var products:Product[] = JSON.parse(localStorage.getItem("products"));
+        localStorage.setItem("products",JSON.stringify([product,...products]))
+        console.log(`New Product list: ${localStorage.getItem("products")}`);
+    }
+}
+
 class Electronic implements Product{
     name; type; price; quantity;
 
@@ -19,8 +43,10 @@ class Electronic implements Product{
     }
 
     addProduct() {
-        console.log("Added Product to DB")
-        return 1;
+        var catalog:ProductCatalog = ProductCatalog.getInstance();
+        catalog.saveProduct(this);
+        console.log("Added Product to Storage")
+        return true;
     }
 
     updateProduct() {
@@ -42,10 +68,11 @@ class Clothing implements Product{
         this.quantity = quantity;
     }
 
-    addProduct(): Product {
-        console.log("Added Product")
-        var electronic: Product = new Clothing(this.name,this.type,this.price,this.quantity);
-        return electronic;
+    addProduct() {
+        var catalog:ProductCatalog = ProductCatalog.getInstance();
+        catalog.saveProduct(this);
+        console.log("Added Product to Storage");
+        return true
     }
 
     updateProduct() {
@@ -67,10 +94,11 @@ class Groceries implements Product{
         this.quantity = quantity;
     }
 
-    addProduct(): Product {
-        console.log("Added Product")
-        var electronic: Product = new Groceries(this.name,this.type,this.price,this.quantity);
-        return electronic;
+    addProduct(){
+        var catalog:ProductCatalog = ProductCatalog.getInstance();
+        catalog.saveProduct(this);
+        console.log("Added Product to Storage");
+        return true;
     }
 
     updateProduct() {
@@ -108,5 +136,5 @@ const addProduct = ()=>{
     // @ts-ignore
     var product:Product = productFactory(product_name,product_type,product_price,product_quantity)
     product.addProduct()
-    window.location.replace("http://www.w3schools.com");
+    window.location.href = "http://localhost:8000/products.html";
 }

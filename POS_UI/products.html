@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS | Catalog</title>
+    <link rel="stylesheet" href="./assets/styles/style.css">
+</head>
+<body>
+<div class="navbar">
+    <a href="/"><img src="./assets/images/logo.jpg" alt="logo" width="100"></a>
+    <div>
+        <a class="nav-item" href="/"><button class="manage">Manage Products</button></a>
+        <a class="nav-item" href="./products.html"><button class="catalog">Catalog</button></a>
+    </div>
+</div>
+
+<h2 style="text-align: center;">Product Catalog</h2>
+
+<table id="product-table">
+  <tr>
+  <th>Name</th>
+  <th>Type</th>
+  <th>Price</th>
+  <th>Quantity</th>
+  </tr>
+</table>
+
+<script src="./assets/main.js"></script>
+<script>
+    window.addEventListener("load",()=>{
+        console.log("Document Loaded");
+        var products = JSON.parse(localStorage.getItem("products"));
+        console.log(products)
+        products.forEach(element => {
+            console.log(element.name)
+            var tableRow = document.createElement("tr");
+            var nc = document.createElement("td");
+            nc.innerHTML = element.name;
+            var tc = document.createElement("td");
+            tc.innerHTML = element.type;
+            var np = document.createElement("td");
+            np.innerHTML = `$ ${element.price}`;
+            var nq = document.createElement("td");
+            nq.innerHTML = element.quantity;
+            tableRow.appendChild(nc);
+            tableRow.appendChild(tc);
+            tableRow.appendChild(np);
+            tableRow.appendChild(nq);
+            document.getElementById("product-table").appendChild(tableRow)
+        });
+    })
+</script>
+</body>
+</html>
+
+

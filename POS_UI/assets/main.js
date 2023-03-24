@@ -1,3 +1,33 @@
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+var ProductCatalog = /** @class */ (function () {
+    function ProductCatalog() {
+        // window.localStorage.setItem("products",JSON.stringify([]))
+        console.log("Initialised object store in localStorage");
+        console.log(localStorage.getItem("products"));
+    }
+    ProductCatalog.getInstance = function () {
+        if (this.catalog == null) {
+            return new ProductCatalog();
+        }
+        return this.catalog;
+    };
+    ProductCatalog.prototype.saveProduct = function (product) {
+        // save product
+        // @ts-ignore
+        var products = JSON.parse(localStorage.getItem("products"));
+        localStorage.setItem("products", JSON.stringify(__spreadArray([product], products, true)));
+        console.log("New Product list: ".concat(localStorage.getItem("products")));
+    };
+    return ProductCatalog;
+}());
 var Electronic = /** @class */ (function () {
     function Electronic(name, type, price, quantity) {
         this.name = name;
@@ -6,8 +36,10 @@ var Electronic = /** @class */ (function () {
         this.quantity = quantity;
     }
     Electronic.prototype.addProduct = function () {
-        console.log("Added Product to DB");
-        return 1;
+        var catalog = ProductCatalog.getInstance();
+        catalog.saveProduct(this);
+        console.log("Added Product to Storage");
+        return true;
     };
     Electronic.prototype.updateProduct = function () {
         return 1;
@@ -25,9 +57,10 @@ var Clothing = /** @class */ (function () {
         this.quantity = quantity;
     }
     Clothing.prototype.addProduct = function () {
-        console.log("Added Product");
-        var electronic = new Clothing(this.name, this.type, this.price, this.quantity);
-        return electronic;
+        var catalog = ProductCatalog.getInstance();
+        catalog.saveProduct(this);
+        console.log("Added Product to Storage");
+        return true;
     };
     Clothing.prototype.updateProduct = function () {
         return 1;
@@ -45,9 +78,10 @@ var Groceries = /** @class */ (function () {
         this.quantity = quantity;
     }
     Groceries.prototype.addProduct = function () {
-        console.log("Added Product");
-        var electronic = new Groceries(this.name, this.type, this.price, this.quantity);
-        return electronic;
+        var catalog = ProductCatalog.getInstance();
+        catalog.saveProduct(this);
+        console.log("Added Product to Storage");
+        return true;
     };
     Groceries.prototype.updateProduct = function () {
         return 1;
@@ -82,5 +116,5 @@ var addProduct = function () {
     // @ts-ignore
     var product = productFactory(product_name, product_type, product_price, product_quantity);
     product.addProduct();
-    window.location.replace("http://www.w3schools.com");
+    window.location.href = "http://localhost:8000/products.html";
 };
