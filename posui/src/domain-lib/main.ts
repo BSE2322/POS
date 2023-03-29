@@ -122,3 +122,47 @@ export const productFactory = (name:String,type:String,price:Number,quantity:Num
             window.alert("Product Type is not supported")
     }
 }
+
+// Decorator Pattern
+//@ts-ignore
+export class ProductDecorator implements Product{
+    protected product: Product;
+    protected name;
+    protected type;
+    protected price;
+    protected quantity;
+
+
+    constructor(product: Product) {
+        this.product = product;
+        this.name = product.name;
+        this.type = product.type;
+        this.price = product.price;
+        this.quantity = product.quantity;
+    }
+
+    addProduct():Boolean{
+     return this.product.addProduct();
+    }
+
+    updateProduct(): Number {
+        return this.product.updateProduct();
+    }
+
+    removeProduct(): Number {
+        return this.product.removeProduct();
+    }
+
+    shipProduct(address:String){
+        console.log(`Product will be shipped to address ${address}`)
+    }
+
+    wrapProduct(){
+        console.log(`The product ${this.product.name} has been wrapped`)
+    }
+
+    expressShip(){
+        console.log(``)
+    }
+
+}
