@@ -5,9 +5,11 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
 import Products from './pages/products';
 import Catalog from './pages/catalog';
+import Selling from './pages/selling'
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,10 @@ const router = createBrowserRouter([
   {
     path:"/manage-products",
     element: <Products/>
+  },
+  {
+    path:"/sell-products",
+    element: <Selling/>
   }
 ]);
 
