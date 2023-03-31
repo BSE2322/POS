@@ -10,6 +10,7 @@ import reportWebVitals from './reportWebVitals';
 import Products from './pages/products';
 import Catalog from './pages/catalog';
 import Selling from './pages/selling'
+import "../src/assets/styles/style.css"
 
 const router = createBrowserRouter([
   {

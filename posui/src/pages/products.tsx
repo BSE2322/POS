@@ -1,8 +1,7 @@
 import React from "react";
 import { productFactory } from "../domain-lib/main";
 import logo from "../assets/images/logo.jpg"
-import "../assets/styles/style.css"
-import { Navigate } from "react-router-dom";
+import {Navigate, redirect} from "react-router-dom";
 
 export default function Products() {
     const addProduct = ()=>{
@@ -18,13 +17,15 @@ export default function Products() {
         // @ts-ignore
         var product:Product = productFactory(product_name,product_type,product_price,product_quantity)
         product.addProduct()
+        redirect("/")
     }
     return (
         <div>
             <div className="navbar">
                 <a href="/"><img src={logo} alt="logo" width="100" /></a>
                 <div>
-                    <a className="nav-item" href="/manage-products"><button className="manage">Manage Products</button></a>
+                    <a className="nav-item" href="/sell-products"><button className="catalog">Sell Products</button></a>
+                    <a className="nav-item" href="/manage-products"><button className="manage">Add Products</button></a>
                     <a className="nav-item" href="/"><button className="catalog">Catalog</button></a>
                 </div>
             </div>

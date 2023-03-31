@@ -11,7 +11,7 @@ export interface Product{
 export class ProductCatalog{
     private static catalog:ProductCatalog;
     private constructor(){
-        window.localStorage.setItem("products",JSON.stringify([]))
+        // window.localStorage.setItem("products",JSON.stringify([]))
         console.log("Initialised object store in localStorage");
         console.log(localStorage.getItem("products"));
     }
@@ -164,5 +164,10 @@ export class ProductDecorator implements Product{
     expressShip(){
         console.log(``)
     }
+
+}
+
+
+interface Observer {
 
 }
