@@ -84,6 +84,15 @@ function Selling() {
         }
     }
 
+    const checkBoxStyle = {
+        marginLeft:"4em"
+    }
+
+    const inputStyle = {
+        border:"0px",
+        backgroundColor:"#f2f0e9"
+    }
+
   return (
     <Container>
         <div className="navbar">
@@ -94,13 +103,14 @@ function Selling() {
                 <a className="nav-item" href="/"><button className="catalog">Catalog</button></a>
             </div>
         </div>
-        <Row>
-            <Col>
+        <Row className="center-block">
+            <h2 style={{textAlign:"center",margin:"1em"}}>Sell Product</h2>
+            <Col style={{width:"30em", margin:"auto"}}>
                 <Form onSubmit={handleSubmit} className="mt-5">
                     <Form.Group className="mb-3">
                         <Form.Label>Select a product: </Form.Label>
 
-                        <Form.Select name="category" id="category" value={name} onChange={(e)=>setName(e.target.value)}>
+                        <Form.Select style={{padding:"0.5em",fontFamily:"Mona Sans",margin:"0.5em",width:"10em",...inputStyle}} name="category" id="category" value={name} onChange={(e)=>setName(e.target.value)}>
                             {selectedProducts && selectedProducts.map((item:Product)=>(
                                 //@ts-ignore
                                 <option value={item.name!}>{item.name}</option>
@@ -109,20 +119,22 @@ function Selling() {
                     </Form.Group>
 
                     <Form.Group className='my-5'>
-                        <Form.Label>Quantity</Form.Label>
+                        <Form.Label>Quantity </Form.Label>
                         {/* @ts-ignore */}
-                        <Form.Control value={quantity} type="number" name='quantity' onChange={(e)=>setQuantity(e.target.value)}/>
+                        <Form.Control style={{padding:"1em",fontFamily:"Mona Sans",width:"10em",marginLeft:"4.5em",...inputStyle}} placeholder="Quantity" value={quantity} type="number" name='quantity' onChange={(e)=>setQuantity(e.target.value)}/>
                     </Form.Group>
 
-                    <Form.Group>
+                    <Form.Group style={{display:"flex"}}>
+                        <Form.Label style={{marginRight:"0.4em"}}>Shipping </Form.Label>
                         {/* @ts-ignore */}
-                        <Form.Check type="checkbox" label="shipping" value={shipping} onChange={(e)=>setShipping(e.target.checked)} />
+                        <Form.Check style={checkBoxStyle} type="checkbox" value={shipping} onChange={(e)=>setShipping(e.target.checked)} />
                     </Form.Group>
 
 
-                    <Form.Group>
+                    <Form.Group style={{display:"flex"}}>
+                            <Form.Label>Wrapping </Form.Label>
                         {/* @ts-ignore */}
-                        <Form.Check type="checkbox" label="wrapping" value={wrapping} onChange={(e)=>setWrapping(e.target.checked)} />
+                        <Form.Check style={checkBoxStyle} type="checkbox" value={wrapping} onChange={(e)=>setWrapping(e.target.checked)} />
                     </Form.Group>
 
                     <div style={{display:"flex"}}>
@@ -132,9 +144,10 @@ function Selling() {
                 </Form>
             </Col>            
             <Col className='mt-4'>
+                <p style={{textAlign:"center",margin:"2em"}}>Cart</p>
             {items && items.map((item, index) => (
-                    <Card key={index} className="mt-5 ps-5 pt-3">
-                        <p>Name: {`${item.name}`} </p>
+                    <Card style={{display:"flex",justifyContent:"center"}} key={index} className="mt-5 ps-5 pt-3">
+                        <p style={{padding:"0.4em",backgroundColor:"#3fc6e8",width:"10em",textAlign:"center"}}>Name: {`${item.name}`} </p>
                        {shipping && <p>Shipping</p>}
                     </Card>
                 ))
