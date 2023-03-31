@@ -1,9 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import Products from './pages/products';
+import Selling from "./pages/selling";
+import {ConcreteProductNotifier, ConcreteSalesPerson} from "./domain-lib/main";
 
-test('renders learn react link', () => {
-  render(<Products/>);
-  const linkElement = screen.getByText(/hello world/i);
-  expect(linkElement).toBeInTheDocument();
+
+test("test if notify calls productAddedToCart",()=>{
+    const salesperson:ConcreteSalesPerson = new ConcreteSalesPerson();
+    const productNotifier:ConcreteProductNotifier = new ConcreteProductNotifier();
+    productNotifier.subscribe(salesperson);
+    productNotifier.notify("Cup");
+    expect(salesperson.productAddedToCart).toHaveBeenCalled();
 });
