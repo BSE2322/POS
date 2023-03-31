@@ -127,10 +127,10 @@ export const productFactory = (name:String,type:String,price:Number,quantity:Num
 //@ts-ignore
 export class ProductDecorator implements Product{
     protected product: Product;
-    protected name;
+     name;
     protected type;
-    protected price;
-    protected quantity;
+     price;
+     quantity;
 
 
     constructor(product: Product) {
@@ -168,6 +168,35 @@ export class ProductDecorator implements Product{
 }
 
 
-interface Observer {
+export interface SalesPerson {
+    productAddedToCart(data:any):void;
+}
 
+export interface ProductNotifier{
+    subscribe(salesperson:SalesPerson):void;
+    unsubscribe(salesperson:SalesPerson):void;
+}
+
+export class ConcreteProductNotifier implements ProductNotifier {
+    private salespeople:SalesPerson[] = [];
+
+    subscribe(salesperson:SalesPerson){
+        this.salespeople.push(salesperson);
+    }
+    unsubscribe(salesperson:SalesPerson) {
+        const index = this.salespeople.indexOf(salesperson);
+        if(index >- 1){
+            this.salespeople.splice(index,1);
+        }
+    }
+
+    notify(data:any){
+        this.salespeople.forEach((salesperson)=> salesperson.productAddedToCart(data))
+    }
+}
+
+export class ConcreteSalesPerson implements  SalesPerson{
+    productAddedToCart(data:any) {
+        alert(`Product Added to cart ${data}`);
+    }
 }

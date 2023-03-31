@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap'
 
-import {Product,ProductDecorator,productFactory} from "../domain-lib/main";
+import {Product,ProductDecorator,productFactory,ConcreteSalesPerson,ConcreteProductNotifier} from "../domain-lib/main";
 import logo from "../assets/images/logo.jpg";
 import Products from "./products";
 
@@ -17,7 +17,7 @@ function Selling() {
     const [quantity, setQuantity]= useState(0)
     const [shipping, setShipping] = useState(false)
     const [wrapping,setWrapping] = useState(false)
-    const [items, setItems] = useState<Product[] | null>(null)
+    const [items, setItems] = useState<ProductDecorator[] | null>(null)
     //@ts-ignore
     const selectedProducts = JSON.parse(localStorage.getItem("products"));
     const resetForm =()=>{
@@ -51,8 +51,10 @@ function Selling() {
         // @ts-ignore
     const handleSubmit = (e) =>{
         e.preventDefault()
-        console.log(`Get Type function${getType(name)}`);
-        console.log(getPrice(name));
+        const salesperson:ConcreteSalesPerson = new ConcreteSalesPerson();
+        const productNotifier:ConcreteProductNotifier = new ConcreteProductNotifier();
+        productNotifier.subscribe(salesperson);
+        productNotifier.notify(name);
         try {
             if(name && quantity){
                 //@ts-ignore
@@ -67,6 +69,11 @@ function Selling() {
                     product.wrapProduct();
                 }else{
                     console.log("Product has been added to cart")
+                }
+                if (items) {
+                    setItems([...items, product])
+                } else {
+                    setItems([product])
                 }
                 resetForm()
             }else{
