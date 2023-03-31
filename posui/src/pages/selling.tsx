@@ -1,16 +1,30 @@
 import React, { useState } from 'react'
 import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap'
 
+interface CartItem {
+    category: string
+    Quantity: number
+    shipping: boolean
+    Wrapping: boolean
+}
+
 function Selling() {
     const [category, setCategory] = useState(" ")
     const [Quantity, setQuantity]= useState(0)
     const [shipping, setShipping]= useState(false)
     const [wrapping, setwrapping]= useState(false)
-
-    
+    const [items, setItems] = useState<CartItem[] | null>(null)
+    const products =[];
+    const resetForm =()=>{
+        console.log("run");
+        
+        setCategory(" ")
+        setQuantity(0)
+        setShipping(false)
+        setwrapping(false)
+    }
         // @ts-ignore
     const handleSubmit = (e) =>{
-        alert("Product Added")
         e.preventDefault()
         try {        
             console.log(category)
@@ -18,17 +32,28 @@ function Selling() {
             console.log(shipping)
             console.log(wrapping)
 
+            const cartItem: CartItem = {
+                "category":category,
+                "Quantity":Quantity,
+                "shipping":shipping,
+                "Wrapping":wrapping
+            }
+            
+            if (items) {
+                setItems([...items, cartItem])
+            } else {
+                setItems([cartItem])
+            }
+
+            alert("Product Added")
+            resetForm() 
+
         } catch (error) {
           console.log(error)  
         }
-
     }
-    const resetForm =()=>{
-        setCategory(" ")
-        setQuantity(0)
-        setShipping(false)
-        setwrapping(false)
-    }
+    console.log("Items",items)
+    
   return (
     <Container>
         <Row>
@@ -37,7 +62,7 @@ function Selling() {
                     <Form.Group className="mb-3">
                         <Form.Label>Select a product category: </Form.Label>
 
-                        <Form.Select name="category" id="category" onChange={(e)=>setCategory(e.target.value)}>
+                        <Form.Select name="category" id="category" value={category} onChange={(e)=>setCategory(e.target.value)}>
                             <option value=""> </option>
                             <option value="clothing">Clothing</option>
                             <option value="electronics">Electronics</option>
@@ -48,37 +73,34 @@ function Selling() {
                     <Form.Group className='my-5'>
                         <Form.Label>Quantity</Form.Label>
                         {/* @ts-ignore */}
-                        <Form.Control type="number" name='quantity' onChange={(e)=>setQuantity(e.target.value)}/>
+                        <Form.Control value={Quantity} type="number" name='quantity' onChange={(e)=>setQuantity(e.target.value)}/>
                     </Form.Group>
 
                     <Form.Group>
-                        <Form.Check type="checkbox" label="shipping" onChange={(e)=>setShipping(e.target.checked)} />
+                        {/* @ts-ignore */}
+                        <Form.Check type="checkbox" label="shipping" value={shipping} onChange={(e)=>setShipping(e.target.checked)} />
                     </Form.Group>
 
 
                     <Form.Group>
-                        <Form.Check type="checkbox" label="wrapping" onChange={(e)=>setwrapping(e.target.checked)} />
+                        {/* @ts-ignore */}
+                        <Form.Check type="checkbox" label="wrapping" value={shipping} onChange={(e)=>setwrapping(e.target.checked)} />
                     </Form.Group>
 
                     <Button type='submit' className='mt-5'>Submit</Button>
                     <Button className='mt-5 ms-5' variant='secondary' onClick={resetForm}>Reset Form</Button>
                 </Form>
-            </Col>
-
-            {category&&Quantity&&
-                <Col className='mt-4'>
-                    <Card className="mt-5 ps-5 pt-3">
-                        <p>Category: {category}</p>
-                        <p>Quantity: {Quantity}</p>
-                        {shipping|| wrapping? <>
-                        <p>{shipping}</p>
-                        <p>{wrapping}</p>
-                        </>: <></>
-                        }
-
+            </Col>            
+            <Col className='mt-4'>
+            {items && items.map((item, index) => (
+                    <Card key={index} className="mt-5 ps-5 pt-3">
+                        <p>Category: {item.category}</p>
+                        <p>Quantity: {item.Quantity}</p>
+                       {item.shipping && <p>Shipping</p>}
                     </Card>
-                </Col>
+                ))
             }
+            </Col>
         </Row>
 
 
