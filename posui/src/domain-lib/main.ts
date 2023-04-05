@@ -200,3 +200,40 @@ export class ConcreteSalesPerson implements  SalesPerson{
         alert(`Product Added to cart ${data}`);
     }
 }
+
+// Strategy Pattern
+interface PaymentStrategy{
+    makePayment(amount:number):void;
+}
+
+class PayWithCash implements PaymentStrategy{
+    makePayment(amount:number): void {
+        console.log("Payment made with Cash");
+        alert("Payment made with Cash");
+    }
+
+}
+
+class PayWithCard implements PaymentStrategy{
+    makePayment(amount:number): void {
+        console.log("Payment made with a Card");
+        alert("Payment made with a Card");
+    }
+
+}
+
+class PaymentContext{
+    private paymentStrategy: PaymentStrategy;
+
+    constructor(paymentStrategy:PaymentStrategy) {
+        this.paymentStrategy = paymentStrategy;
+    }
+
+    public setPaymentStrategy(paymentStrategy:PaymentStrategy){
+        this.paymentStrategy = paymentStrategy;
+    }
+
+    public executePayment(amount:number){
+        this.paymentStrategy.makePayment(amount);
+    }
+}
