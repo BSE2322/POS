@@ -1,3 +1,4 @@
+//Product interface
 export interface Product{
     name: String;
     type: String;
@@ -7,7 +8,7 @@ export interface Product{
     updateProduct():Number;
     removeProduct():Number;
 }
-
+//Product catalog class
 export class ProductCatalog{
     private static catalog:ProductCatalog;
     private constructor(){
@@ -202,11 +203,11 @@ export class ConcreteSalesPerson implements  SalesPerson{
 }
 
 // Strategy Pattern
-interface PaymentStrategy{
+export interface PaymentStrategy{
     makePayment(amount:number):void;
 }
 
-class PayWithCash implements PaymentStrategy{
+export class PayWithCash implements PaymentStrategy{
     makePayment(amount:number): void {
         console.log("Payment made with Cash");
         alert("Payment made with Cash");
@@ -214,7 +215,7 @@ class PayWithCash implements PaymentStrategy{
 
 }
 
-class PayWithCard implements PaymentStrategy{
+export class PayWithCard implements PaymentStrategy{
     makePayment(amount:number): void {
         console.log("Payment made with a Card");
         alert("Payment made with a Card");
@@ -222,7 +223,7 @@ class PayWithCard implements PaymentStrategy{
 
 }
 
-class PaymentContext{
+export class PaymentContext{
     private paymentStrategy: PaymentStrategy;
 
     constructor(paymentStrategy:PaymentStrategy) {
@@ -237,3 +238,43 @@ class PaymentContext{
         this.paymentStrategy.makePayment(amount);
     }
 }
+
+export interface Cart{
+    updateCart():any;
+}
+
+export class ConcreteCart implements Cart{
+    updateCart(): any {
+        console.log("Cart Notified");
+        alert("Cart Notified and Updated")
+    }
+
+}
+
+export interface BarCodeReader{
+    subscribe(cart:Cart):any;
+    unsubscribe(cart:Cart):any;
+
+}
+
+export class ConcreteBarCodeReader implements BarCodeReader{
+    private carts:Cart[] = [];
+    subscribe(cart: Cart): any {
+        this.carts.push(cart);
+    }
+
+    unsubscribe(cart: Cart): any {
+        const index = this.carts.indexOf(cart);
+        if(index > -1){
+            this.carts.splice(index,1)
+        }
+    }
+
+    public notify():any{
+        this.carts.forEach((cart)=>{
+            cart.updateCart();
+        })
+    }
+
+}
+
