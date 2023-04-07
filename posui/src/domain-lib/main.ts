@@ -169,6 +169,7 @@ export class ProductDecorator implements Product{
 }
 
 
+// Observer pattern for notifying the salesperson
 export interface SalesPerson {
     productAddedToCart(data:any):void;
 }
@@ -239,6 +240,8 @@ export class PaymentContext{
     }
 }
 
+
+//Observer Pattern for Notifying the cart
 export interface Cart{
     updateCart():any;
 }
