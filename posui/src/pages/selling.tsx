@@ -10,15 +10,6 @@ import {
     PaymentContext, PayWithCash, PayWithCard, Cart, ConcreteCart, BarCodeReader, ConcreteBarCodeReader
 } from "../domain-lib/main";
 import logo from "../assets/images/logo.jpg";
-import Products from "./products";
-import {totalmem} from "os";
-
-// interface CartItem {
-//     category: string
-//     Quantity: number
-//     shipping: boolean
-//     Wrapping: boolean
-// }
 
 function Selling() {
     const [name, setName] = useState(" ")
@@ -27,10 +18,8 @@ function Selling() {
     const [wrapping,setWrapping] = useState(false)
     const [items, setItems] = useState<ProductDecorator[] | null>(null)
     const [sum,setSum] = useState<number>(0);
-    const [paymentMethod,setPaymentMethod] = useState("");
 
-
-    let video:any, canvas:any, imageurl:any, scanbtn:any, capturebtn:any, addbtn:any;
+    let video:any, canvas:any, imageurl:any, scanbtn:any, capturebtn:any, addbtn:any, paymentMethod:string;
     //@ts-ignore
     const selectedProducts = JSON.parse(localStorage.getItem("products"));
     const resetForm =()=>{
@@ -160,10 +149,10 @@ function Selling() {
     const handlePayment = (e:any)=>{
         e.preventDefault();
         let paymentContext: PaymentContext = new PaymentContext(new PayWithCash());
-        if(paymentMethod.localeCompare("cash")){
+        if(paymentMethod.localeCompare("cash") == 0){
             console.log("used cash");
             paymentContext.executePayment(sum);
-        }else if(paymentMethod.localeCompare("card")){
+        }else if(paymentMethod.localeCompare("card") == 0){
             console.log("use card");
             paymentContext.setPaymentStrategy(new PayWithCard());
             paymentContext.executePayment(sum);
@@ -253,11 +242,19 @@ function Selling() {
                         <form onSubmit={handlePayment}>
                             <p>Choose payment method</p>
                             <label>
-                                <input type="radio" name="method" value="cash" checked onChange={(e)=>{setPaymentMethod("cash")}}/>
+                                <input type="radio" name="method" value="card" onClick={async (e)=>{
+                                    console.log("Card chosen");
+                                    paymentMethod = "card";
+                                    console.log(paymentMethod);
+                                }}/>
                                     Card
                             </label><br/>
                             <label>
-                                <input type="radio" name="method" value="card" onChange={(e)=>{setPaymentMethod("card")}}/>
+                                <input type="radio" name="method" value="cash" onClick={async (e)=>{
+                                    console.log("Cash chosen");
+                                    paymentMethod = "cash";
+                                    console.log(paymentMethod);
+                                }}/>
                                     Cash
                             </label>
                             <br/>
