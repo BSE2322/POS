@@ -11,10 +11,6 @@ export default function Catalog() {
         setProducts(JSON.parse(localStorage.getItem("products")));
     }, []);
 
-    if (!products) {
-        window.alert("Stock is empty");
-        return
-    }
     return (
         <div>
             <div className="navbar">
@@ -36,7 +32,7 @@ export default function Catalog() {
                         <th>Price</th>
                         <th>Quantity</th>
                     </tr>
-                    {products.map((e:any)=>(
+                    {products && products.map((e:any)=>(
                         <tr>
                             <td>{e.name}</td>
                             <td>{e.type}</td>
