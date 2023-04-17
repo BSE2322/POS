@@ -49,21 +49,36 @@ button{
 }
 
 .manage{
-    background-color: #d8af0b;
+    background-color:#00235B;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
-    cursor: pointer;  
+    cursor: pointer; 
+    border-radius: 10px; 
+}
+.submit{
+  background-color:#00235B;
 }
 
 .catalog{
-    background-color: #0b60d8;
+    background-color: #33e7cf;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
+    border-radius: 10px; 
+}
+
+.sell{
+  background-color: #7958e9;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px; 
 }
 
 input{
@@ -83,3 +98,7 @@ table {
   tr:nth-child(even) {
     background-color: #D6EEEE;
   }
+
+#initiateScan{
+  background-color:"#FFD966"
+}

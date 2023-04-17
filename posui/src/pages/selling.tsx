@@ -174,9 +174,9 @@ function Selling() {
         <div className="navbar">
             <a href="/"><img src={logo} alt="logo" width="100" /></a>
             <div>
-                <a className="nav-item" href="/sell-products"><button className="catalog">Sell Products</button></a>
+                <a className="nav-item" href="/sell-products"><button style={{backgroundColor:"green", borderRadius:"10px" }}>Sell Products</button></a>
                 <a className="nav-item" href="/manage-products"><button className="manage">Add Products</button></a>
-                <a className="nav-item" href="/"><button className="catalog">Catalog</button></a>
+                <a className="nav-item" href="/"><button className="sell">Catalog</button></a>
             </div>
         </div>
         <Row className="center-block">
@@ -192,9 +192,10 @@ function Selling() {
                 }}>
                     <Form onSubmit={handleSubmit} className="mt-5" style={{width:"400px"}}>
                         <Form.Group className="mb-3">
+                            <h4 className='mb-3'>Add a Product to sell</h4>
                             <Form.Label>Select a product: </Form.Label>
 
-                            <Form.Select style={{padding:"0.5em",fontFamily:"Mona Sans",margin:"0.5em",width:"10em",...inputStyle}} name="category" id="category" value={name} onChange={(e)=>setName(e.target.value)}>
+                            <Form.Select className='py-3' style={{fontFamily:"Mona Sans",...inputStyle}} name="category" id="category" value={name} onChange={(e)=>setName(e.target.value)}>
                                 {selectedProducts && selectedProducts.map((item:Product)=>(
                                     //@ts-ignore
                                     <option value={item.name!}>{item.name}</option>
@@ -203,11 +204,12 @@ function Selling() {
                         </Form.Group>
 
                         <Form.Group className='my-5'>
-                            <Form.Label>Quantity </Form.Label>
+                            <Form.Label>Enter Quantity: </Form.Label> <br />
                             {/* @ts-ignore */}
-                            <Form.Control style={{padding:"1em",fontFamily:"Mona Sans",width:"10em",marginLeft:"4.5em",...inputStyle}} placeholder="Quantity" value={quantity} type="number" name='quantity' onChange={(e)=>setQuantity(e.target.value)}/>
+                            <Form.Control style={{fontFamily:"Mona Sans",...inputStyle}} placeholder="Quantity" value={quantity} type="number" name='quantity' onChange={(e)=>setQuantity(e.target.value)}/>
                         </Form.Group>
 
+                        <h4 className='mb-3'>Choose an additional feature</h4>            
                         <Form.Group style={{display:"flex"}}>
                             <Form.Label style={{marginRight:"0.4em"}}>Shipping </Form.Label>
                             {/* @ts-ignore */}
@@ -221,20 +223,44 @@ function Selling() {
                             <Form.Check style={checkBoxStyle} type="checkbox" value={wrapping} onChange={(e)=>setWrapping(e.target.checked)} />
                         </Form.Group>
 
-                        <div style={{display:"flex"}}>
-                            <Button style={{marginRight:"1em"}} type='submit' className='mt-5'>Submit</Button>
-                            <Button className='mt-5 ms-5' variant='secondary' onClick={resetForm}>Reset Form</Button>
+                        <div  style={{ display: "flex", marginTop:"2em" }}>
+                            <div style={{marginRight:"1em"}}>
+                                <Button type='submit' className='submit' >Submit</Button>
+                            </div>
+
+                            <div id="video-container">
+                                <Button id="initiateScan" style={{marginRight:"1em",display:"block", color:"white"}} onClick={scanCode} type='submit' variant="warning">Scan Barcode</Button>
+                                <div>
+                                    <Button id="captureScan" style={{marginRight:"1em",display:"none", marginBottom:"2em"}} onClick={captureCode} type='submit' variant="warning">Capture Code</Button>
+                                    <Button id="addToCart" style={{marginRight:"1em",display:"none", marginBottom:"2em"}} onClick={addToCart} type='submit' variant="warning">Add To Cart</Button>
+                                </div>
+                                <video id="video" autoPlay={true} width="200" height="200"></video>
+                                <canvas id="canvas" width="200" height="200" hidden={true}></canvas>
+                            </div>
                         </div>
                     </Form>
-                    <div id="video-container">
-                        <Button id="initiateScan" style={{marginRight:"1em",display:"block"}} onClick={scanCode} type='submit' className='mt-5'>Scan Barcode</Button>
-                        <div>
-                            <Button id="captureScan" style={{marginRight:"1em",display:"none", marginBottom:"2em"}} onClick={captureCode} type='submit' className='mt-5'>Capture Code</Button>
-                            <Button id="addToCart" style={{marginRight:"1em",display:"none", marginBottom:"2em"}} onClick={addToCart} type='submit' className='mt-5'>Add To Cart</Button>
-                        </div>
-                        <video id="video" autoPlay={true} width="200" height="200"></video>
-                        <canvas id="canvas" width="200" height="200" hidden={true}></canvas>
-                    </div>
+
+                </div>
+            </Col>            
+            <Col className='mt-4'>
+                <h3 style={{margin:"2em"}}>Cart Items</h3>
+            {items && items.map((item, index) => (
+                    <Card style={{
+                        width:"6em",
+                        marginRight:"auto",
+                        marginLeft:"auto",
+                        backgroundColor:"#d7dbde",
+                        padding:"0.5em",
+                        marginBottom:"1em"
+                    }} key={index}>
+                        <p style={{
+                            fontWeight:"bold"
+                        }}>{item.name}</p>
+                        <span>{item.price.toString()}</span>
+                       {shipping && <p>Shipping</p>}
+                    </Card>
+                ))
+            }
                     <div style={{
                         marginLeft:"2em"
                     }} className="payment-container" id="payment-options">
@@ -259,32 +285,11 @@ function Selling() {
                             </label>
                             <br/>
                                 <button style={{
-                                    backgroundColor:"green"
+                                    backgroundColor:"green", borderRadius:"10px"
                                 }} type="submit">Pay</button>
                         </form>
 
                     </div>
-                </div>
-            </Col>            
-            <Col className='mt-4'>
-                <h3 style={{textAlign:"center",margin:"2em"}}>Cart</h3>
-            {items && items.map((item, index) => (
-                    <Card style={{
-                        width:"6em",
-                        marginRight:"auto",
-                        marginLeft:"auto",
-                        backgroundColor:"#d7dbde",
-                        padding:"0.5em",
-                        marginBottom:"1em"
-                    }} key={index}>
-                        <p style={{
-                            fontWeight:"bold"
-                        }}>{item.name}</p>
-                        <span>{item.price.toString()}</span>
-                       {shipping && <p>Shipping</p>}
-                    </Card>
-                ))
-            }
             </Col>
         </Row>
 
