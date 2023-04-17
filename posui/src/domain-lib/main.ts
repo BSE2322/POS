@@ -209,34 +209,27 @@ export class ConcreteSalesPerson implements  SalesPerson{
 export interface PaymentStrategy{
     makePayment(amount:number):void;
 }
-
 export class PayWithCash implements PaymentStrategy{
     makePayment(amount:number): void {
         console.log("Payment made with Cash");
         alert("Payment made with Cash");
     }
-
 }
-
 export class PayWithCard implements PaymentStrategy{
     makePayment(amount:number): void {
         console.log("Payment made with a Card");
         alert("Payment made with a Card");
     }
-
 }
-
 export class PaymentContext{
     private paymentStrategy: PaymentStrategy;
 
     constructor(paymentStrategy:PaymentStrategy) {
         this.paymentStrategy = paymentStrategy;
     }
-
     public setPaymentStrategy(paymentStrategy:PaymentStrategy){
         this.paymentStrategy = paymentStrategy;
     }
-
     public executePayment(amount:number){
         this.paymentStrategy.makePayment(amount);
     }

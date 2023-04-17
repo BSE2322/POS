@@ -193,9 +193,9 @@ function Selling() {
         <div className="navbar">
             <a href="/"><img src={logo} alt="logo" width="100" /></a>
             <div>
-                <a className="nav-item" href="/sell-products"><button className="catalog">Sell Products</button></a>
+                <a className="nav-item" href="/sell-products"><button style={{backgroundColor:"green", borderRadius:"10px" }}>Sell Products</button></a>
                 <a className="nav-item" href="/manage-products"><button className="manage">Add Products</button></a>
-                <a className="nav-item" href="/"><button className="catalog">Catalog</button></a>
+                <a className="nav-item" href="/"><button className="sell">Catalog</button></a>
             </div>
         </div>
         <Container>
@@ -212,27 +212,28 @@ function Selling() {
                     }}>
                         <Form onSubmit={handleSubmit} className="mt-5" style={{width:"400px"}}>
                             <Form.Group className="mb-3">
+                            <h4 className='mb-3'>Add a Product to sell</h4>
                                 <Form.Label>Select a product: </Form.Label>
 
-                                <Form.Select style={{padding:"0.5em",fontFamily:"Mona Sans",margin:"0.5em",width:"10em",...inputStyle}} name="category" id="category" value={name} onChange={(e)=>setName(e.target.value)}>
-                                    {selectedProducts && selectedProducts.map((item:Product)=>(
-                                        //@ts-ignore
-                                        <option onClick={(e)=>{setName(item.name)}} value={item.name!}>{item.name}</option>
-                                    ))}
-                                </Form.Select>
-                            </Form.Group>
+                            <Form.Select style={{padding:"0.5em",fontFamily:"Mona Sans",margin:"0.5em",width:"10em",...inputStyle}} name="category" id="category" value={name} onChange={(e)=>setName(e.target.value)}>
+                                {selectedProducts && selectedProducts.map((item:Product)=>(
+                                    //@ts-ignore
+                                    <option value={item.name!}>{item.name}</option>
+                                ))}
+                            </Form.Select>
+                        </Form.Group>
 
-                            <Form.Group className='my-5'>
-                                <Form.Label>Quantity </Form.Label>
-                                {/* @ts-ignore */}
-                                <Form.Control style={{padding:"1em",fontFamily:"Mona Sans",width:"10em",marginLeft:"4.5em",...inputStyle}} placeholder="Quantity" value={quantity} type="number" name='quantity' onChange={(e)=>setQuantity(e.target.value)}/>
-                            </Form.Group>
+                        <Form.Group className='my-5'>
+                            <Form.Label>Quantity </Form.Label>
+                            {/* @ts-ignore */}
+                            <Form.Control style={{padding:"1em",fontFamily:"Mona Sans",width:"10em",marginLeft:"4.5em",...inputStyle}} placeholder="Quantity" value={quantity} type="number" name='quantity' onChange={(e)=>setQuantity(e.target.value)}/>
+                        </Form.Group>
 
-                            <Form.Group style={{display:"flex"}}>
-                                <Form.Label style={{marginRight:"0.4em"}}>Shipping </Form.Label>
-                                {/* @ts-ignore */}
-                                <Form.Check style={checkBoxStyle} type="checkbox" value={shipping} onChange={(e)=>setShipping(e.target.checked)} />
-                            </Form.Group>
+                        <Form.Group style={{display:"flex"}}>
+                            <Form.Label style={{marginRight:"0.4em"}}>Shipping </Form.Label>
+                            {/* @ts-ignore */}
+                            <Form.Check style={checkBoxStyle} type="checkbox" value={shipping} onChange={(e)=>setShipping(e.target.checked)} />
+                        </Form.Group>
 
 
                             <Form.Group style={{display:"flex"}}>
@@ -241,31 +242,32 @@ function Selling() {
                                 <Form.Check style={checkBoxStyle} type="checkbox" value={wrapping} onChange={(e)=>setWrapping(e.target.checked)} />
                             </Form.Group>
 
-                            <div style={{display:"flex"}}>
-                                <Button style={{marginRight:"1em"}} type='submit' className='mt-5'>Submit</Button>
-                            </div>
-                        </Form>
-                        <div id="video-container">
-                            <Button id="initiateScan" style={{marginRight:"1em",display:"block"}} onClick={scanCode} type='submit' className='mt-5'>Scan Barcode</Button>
-                            <div>
-                                <Button id="captureScan" style={{marginRight:"1em",display:"none", marginBottom:"2em"}} onClick={captureCode} type='submit' className='mt-5'>Capture Code</Button>
-                                <Button id="addToCart" style={{marginRight:"1em",display:"none", marginBottom:"2em"}} onClick={addToCart} type='submit' className='mt-5'>Add To Cart</Button>
-                            </div>
-                            <video id="video" autoPlay={true} width="200" height="200"></video>
-                            <canvas id="canvas" width="200" height="200" hidden={true}></canvas>
+                        <div style={{display:"flex"}}>
+                            <Button style={{marginRight:"1em"}} type='submit' className='mt-5'>Submit</Button>
+                            <Button className='mt-5 ms-5' variant='secondary' onClick={resetForm}>Reset Form</Button>
                         </div>
-                        <div style={{
-                            marginLeft:"2em"
-                        }} className="payment-container" id="payment-options">
-                            <h3>Make Payment</h3>
-                            <form onSubmit={handlePayment}>
-                                <p>Choose payment method</p>
-                                <label>
-                                    <input type="radio" name="method" value="card" onClick={async (e)=>{
-                                        console.log("Card chosen");
-                                        paymentMethod = "card";
-                                        console.log(paymentMethod);
-                                    }}/>
+                    </Form>
+                    <div id="video-container">
+                        <Button id="initiateScan" style={{marginRight:"1em",display:"block"}} onClick={scanCode} type='submit' className='mt-5'>Scan Barcode</Button>
+                        <div>
+                            <Button id="captureScan" style={{marginRight:"1em",display:"none", marginBottom:"2em"}} onClick={captureCode} type='submit' className='mt-5'>Capture Code</Button>
+                            <Button id="addToCart" style={{marginRight:"1em",display:"none", marginBottom:"2em"}} onClick={addToCart} type='submit' className='mt-5'>Add To Cart</Button>
+                        </div>
+                        <video id="video" autoPlay={true} width="200" height="200"></video>
+                        <canvas id="canvas" width="200" height="200" hidden={true}></canvas>
+                    </div>
+                    <div style={{
+                        marginLeft:"2em"
+                    }} className="payment-container" id="payment-options">
+                        <h3>Make Payment</h3>
+                        <form onSubmit={handlePayment}>
+                            <p>Choose payment method</p>
+                            <label>
+                                <input type="radio" name="method" value="card" onClick={async (e)=>{
+                                    console.log("Card chosen");
+                                    paymentMethod = "card";
+                                    console.log(paymentMethod);
+                                }}/>
                                     Card
                                 </label><br/>
                                 <label>
@@ -278,34 +280,34 @@ function Selling() {
                                 </label>
                                 <br/>
                                 <button style={{
-                                    backgroundColor:"green"
+                                    backgroundColor:"green", borderRadius:"10px"
                                 }} type="submit">Pay</button>
                             </form>
 
-                        </div>
                     </div>
-                </Col>
-                <Col className='mt-4'>
-                    <h3 style={{textAlign:"center",margin:"2em"}}>Cart</h3>
-                    {items && items.map((item, index) => (
-                        <Card style={{
-                            width:"6em",
-                            marginRight:"auto",
-                            marginLeft:"auto",
-                            backgroundColor:"#d7dbde",
-                            padding:"0.5em",
-                            marginBottom:"1em"
-                        }} key={index}>
-                            <p style={{
-                                fontWeight:"bold"
-                            }}>{item.name}</p>
-                            <span>{item.price.toString()}</span>
-                            {shipping && <p>Shipping</p>}
-                        </Card>
-                    ))
-                    }
-                </Col>
-            </Row>
+                </div>
+            </Col>            
+            <Col className='mt-4'>
+                <h3 style={{textAlign:"center",margin:"2em"}}>Cart</h3>
+            {items && items.map((item, index) => (
+                    <Card style={{
+                        width:"6em",
+                        marginRight:"auto",
+                        marginLeft:"auto",
+                        backgroundColor:"#d7dbde",
+                        padding:"0.5em",
+                        marginBottom:"1em"
+                    }} key={index}>
+                        <p style={{
+                            fontWeight:"bold"
+                        }}>{item.name}</p>
+                        <span>{item.price.toString()}</span>
+                       {shipping && <p>Shipping</p>}
+                    </Card>
+                ))
+            }
+            </Col>
+        </Row>
 
 
         </Container>
