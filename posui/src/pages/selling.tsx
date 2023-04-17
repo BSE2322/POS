@@ -14,7 +14,9 @@ import {useNavigate} from "react-router-dom";
 import {Receipt} from "./receipt";
 
 function Selling() {
-    const [name, setName] = useState(" ")
+    //@ts-ignore
+    const selectedProducts = JSON.parse(localStorage.getItem("products"));
+    const [name, setName] = useState(selectedProducts[0].name)
     const [quantity, setQuantity]= useState(0)
     const [shipping, setShipping] = useState(false)
     const [wrapping,setWrapping] = useState(false)
@@ -22,8 +24,6 @@ function Selling() {
     const [total, setTotal] = useState(0);
 
     let video:any, canvas:any, imageurl:any, scanbtn:any, capturebtn:any, addbtn:any, paymentMethod:string;
-    //@ts-ignore
-    const selectedProducts = JSON.parse(localStorage.getItem("products"));
     const navigate = useNavigate();
     const resetForm =()=>{
         setName(" ")

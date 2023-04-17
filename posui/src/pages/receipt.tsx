@@ -7,6 +7,10 @@ export function Receipt(){
     try {
         const data = JSON.parse(searchParams.get("data") || `null`);
         if(data.receipt){
+            let total = 0;
+            data.receipt.items.map((e:any)=>{
+                total = e.price + total;
+            })
             return (
                 <div>
                     <div id="invoice-POS">
@@ -48,14 +52,8 @@ export function Receipt(){
                         ))}
                         <tr className="tabletitle">
                             <td></td>
-                            <td className="Rate"><h2>Tax</h2></td>
-                            <td className="payment"><h2>UGX 419.25</h2></td>
-                        </tr>
-
-                        <tr className="tabletitle">
-                            <td></td>
                             <td className="Rate"><h2>Total</h2></td>
-                            <td className="payment"><h2 className="total-amount">UGX 3,644.25</h2></td>
+                            <td className="payment"><h2 className="total-amount">UGX {total}</h2></td>
                         </tr>
 
                     </table>
