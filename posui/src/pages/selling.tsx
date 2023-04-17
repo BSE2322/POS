@@ -174,19 +174,19 @@ function Selling() {
         <div className="navbar">
             <a href="/"><img src={logo} alt="logo" width="100" /></a>
             <div>
-                <a className="nav-item" href="/sell-products"><button style={{backgroundColor:"green", borderRadius:"10px" }}>Sell Products</button></a>
+                <a className="nav-item" href="/sell-products"><button style={{backgroundColor:"green", borderRadius:"10px"}}>Sell Products</button></a>
                 <a className="nav-item" href="/manage-products"><button className="manage">Add Products</button></a>
                 <a className="nav-item" href="/"><button className="sell">Catalog</button></a>
             </div>
         </div>
         <Row className="center-block">
-            <h2 style={{textAlign:"center",margin:"1em"}}>Sell Product</h2>
+            <h2 style={{textAlign:"center",margin:"1em",textDecoration:"underline" }}>Sell Product</h2>
             <div>
                 <h3 style={{
                     color:"green"
                 }}>Total Price: {sum}</h3>
             </div>
-            <Col style={{width:"60em", margin:"auto"}}>
+            <Col md={7} >
                 <div style={{
                     display:"flex"
                 }}>
@@ -242,7 +242,7 @@ function Selling() {
 
                 </div>
             </Col>            
-            <Col className='mt-4'>
+            <Col md={4} className='mt-4'>
                 <h3 style={{margin:"2em"}}>Cart Items</h3>
             {items && items.map((item, index) => (
                     <Card style={{
