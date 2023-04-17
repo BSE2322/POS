@@ -174,9 +174,9 @@ function Selling() {
         <div className="navbar">
             <a href="/"><img src={logo} alt="logo" width="100" /></a>
             <div>
-                <a className="nav-item" href="/sell-products"><button style={{backgroundColor:"green", borderRadius:"10px"}}>Sell Products</button></a>
+                <a className="nav-item" href="/sell-products"><button className='catalog'>Sell Products</button></a>
                 <a className="nav-item" href="/manage-products"><button className="manage">Add Products</button></a>
-                <a className="nav-item" href="/"><button className="sell">Catalog</button></a>
+                <a className="nav-item" href="/"><button className="catalog">Catalog</button></a>
             </div>
         </div>
         <Row className="center-block">
