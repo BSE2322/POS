@@ -309,7 +309,6 @@ function Selling() {
             </Col>
         </Row>
 
-
         </Container>
     </div>
   )
