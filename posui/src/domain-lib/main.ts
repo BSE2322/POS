@@ -12,7 +12,9 @@ export interface Product{
 export class ProductCatalog{
     private static catalog:ProductCatalog;
     private constructor(){
-        // window.localStorage.setItem("products",JSON.stringify([]))
+        if(!localStorage.getItem("products")){
+            window.localStorage.setItem("products",JSON.stringify([]));
+        }
         console.log("Initialised object store in localStorage");
         console.log(localStorage.getItem("products"));
     }

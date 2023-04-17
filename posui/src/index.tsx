@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
@@ -10,6 +11,7 @@ import reportWebVitals from './reportWebVitals';
 import Products from './pages/products';
 import Catalog from './pages/catalog';
 import Selling from './pages/selling'
+import {Receipt} from "./pages/receipt";
 import "../src/assets/styles/style.css"
 
 const router = createBrowserRouter([
@@ -24,12 +26,17 @@ const router = createBrowserRouter([
   {
     path:"/sell-products",
     element: <Selling/>
+  },
+  {
+    path:"/receipt",
+    element:<Receipt/>
   }
 ]);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <React.StrictMode>

@@ -10,6 +10,7 @@ import {
     PaymentContext, PayWithCash, PayWithCard, Cart, ConcreteCart, BarCodeReader, ConcreteBarCodeReader
 } from "../domain-lib/main";
 import logo from "../assets/images/logo.jpg";
+import {useNavigate} from "react-router-dom";
 
 function Selling() {
     const [name, setName] = useState(" ")
@@ -22,6 +23,7 @@ function Selling() {
     let video:any, canvas:any, imageurl:any, scanbtn:any, capturebtn:any, addbtn:any, paymentMethod:string;
     //@ts-ignore
     const selectedProducts = JSON.parse(localStorage.getItem("products"));
+    const navigate = useNavigate();
     const resetForm =()=>{
         console.log("run");
         
@@ -149,15 +151,17 @@ function Selling() {
     const handlePayment = (e:any)=>{
         e.preventDefault();
         let paymentContext: PaymentContext = new PaymentContext(new PayWithCash());
-        if(paymentMethod.localeCompare("cash") == 0){
-            console.log("used cash");
-            paymentContext.executePayment(sum);
-        }else if(paymentMethod.localeCompare("card") == 0){
-            console.log("use card");
-            paymentContext.setPaymentStrategy(new PayWithCard());
-            paymentContext.executePayment(sum);
+        if(paymentMethod){
+            if(paymentMethod.localeCompare("cash") == 0){
+                console.log("used cash");
+                paymentContext.executePayment(sum);
+            }else if(paymentMethod.localeCompare("card") == 0){
+                console.log("use card");
+                paymentContext.setPaymentStrategy(new PayWithCard());
+                paymentContext.executePayment(sum);
+            }
         }
-        window.location.reload();
+        return navigate("/receipt?data={\"receipt\":{\"items\":[{\"name\":\"Juice\",\"quantity\":4,\"price\":\"2344\"},{\"name\":\"Juice\",\"quantity\":4,\"price\":\"2344\"},{\"name\":\"Juice\",\"quantity\":4,\"price\":\"2344\"},{\"name\":\"Juice\",\"quantity\":4,\"price\":\"2344\"},{\"name\":\"Juice\",\"quantity\":4,\"price\":\"2344\"},{\"name\":\"Juice\",\"quantity\":4,\"price\":\"2344\"},{\"name\":\"Juice\",\"quantity\":4,\"price\":\"2344\"}]}}",{replace:true})
 
     }
     const checkBoxStyle = {

@@ -1,41 +1,20 @@
-import React from "react";
+//@ts-nocheck
+import React, {useState} from "react";
 import { useEffect } from "react";
 import logo from "../assets/images/logo.jpg"
 import "../assets/styles/style.css"
 
 export default function Catalog() {
-    const buildTable = () => {
-        console.log("Document Loaded");
-        //@ts-ignore
-        var products = JSON.parse(localStorage.getItem("products"));
-        if (products.length === 0) {
-            window.alert("Stock is empty");
-            return
-        }
-        console.log(products)
-        //@ts-ignore
-        products.forEach(element => {
-            console.log(element.name)
-            var tableRow = document.createElement("tr");
-            var nc = document.createElement("td");
-            nc.innerHTML = element.name;
-            var tc = document.createElement("td");
-            tc.innerHTML = element.type;
-            var np = document.createElement("td");
-            np.innerHTML = `$ ${element.price}`;
-            var nq = document.createElement("td");
-            nq.innerHTML = element.quantity;
-            tableRow.appendChild(nc);
-            tableRow.appendChild(tc);
-            tableRow.appendChild(np);
-            tableRow.appendChild(nq);
-            //@ts-ignore
-            document.getElementById("product-table").appendChild(tableRow)
-        });
-    }
+    const [products, setProducts] = useState<Array<object>>([{"name":"Test","type":"test","price":232,"quantity":2}]);
     useEffect(() => {
-        buildTable();
+        //@ts-ignore
+        setProducts(JSON.parse(localStorage.getItem("products")));
     }, []);
+
+    if (!products) {
+        window.alert("Stock is empty");
+        return
+    }
     return (
         <div>
             <div className="navbar">
@@ -57,6 +36,14 @@ export default function Catalog() {
                         <th>Price</th>
                         <th>Quantity</th>
                     </tr>
+                    {products.map((e:any)=>(
+                        <tr>
+                            <td>{e.name}</td>
+                            <td>{e.type}</td>
+                            <td>{e.price}</td>
+                            <td>{e.quantity}</td>
+                        </tr>
+                    ))}
                 </table>
             </div>
         </div>

@@ -1,9 +1,10 @@
 import React from "react";
 import { productFactory } from "../domain-lib/main";
 import logo from "../assets/images/logo.jpg"
-import {Navigate, redirect} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export default function Products() {
+    const navigate = useNavigate();
     const addProduct = ()=>{
         console.log("Creating Product")
         // @ts-ignore
@@ -17,7 +18,7 @@ export default function Products() {
         // @ts-ignore
         var product:Product = productFactory(product_name,product_type,product_price,product_quantity)
         product.addProduct()
-        redirect("/")
+        return navigate("/",{replace:true})
     }
     return (
         <div>
@@ -46,7 +47,7 @@ export default function Products() {
                 </div>
             </div>
             <div style={{ display: "flex", justifyContent: "center" }}>
-                <button onClick={()=>{addProduct(); return <Navigate to="/" replace/>}}>Submit</button>
+                <button onClick={addProduct}>Submit</button>
             </div>
         </div>
     );
