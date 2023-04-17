@@ -2,8 +2,8 @@
 export interface Product{
     name: String;
     type: String;
-    price: Number;
-    quantity: Number;
+    price: number;
+    quantity: number;
     addProduct():Boolean;
     updateProduct():Number;
     removeProduct():Number;
@@ -38,7 +38,7 @@ export class ProductCatalog{
 export class Electronic implements Product{
     name; type; price; quantity;
 
-    constructor(name:String,type:String,price:Number,quantity:Number){
+    constructor(name:String,type:String,price:number,quantity:number){
         this.name = name;
         this.type = type;
         this.price = price;
@@ -64,7 +64,7 @@ export class Electronic implements Product{
 export class Clothing implements Product{
     name; type; price; quantity;
 
-    constructor(name:String,type:String,price:Number,quantity:Number){
+    constructor(name:String,type:String,price:number,quantity:number){
         this.name = name;
         this.type = type;
         this.price = price;
@@ -90,7 +90,7 @@ export class Clothing implements Product{
 export class Groceries implements Product{
     name; type; price; quantity;
 
-    constructor(name:String,type:String,price:Number,quantity:Number){
+    constructor(name:String,type:String,price:number,quantity:number){
         this.name = name;
         this.type = type;
         this.price = price;
@@ -113,7 +113,7 @@ export class Groceries implements Product{
     }
 }
 
-export const productFactory = (name:String,type:String,price:Number,quantity:Number)=>{
+export const productFactory = (name:String,type:String,price:number,quantity:number)=>{
     switch(type){
         case "Clothing":
             return new Clothing(name,type,price,quantity);

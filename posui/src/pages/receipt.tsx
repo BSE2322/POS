@@ -1,11 +1,11 @@
 import React from "react";
-import {redirect, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 import "../assets/styles/receipt.css"
 
 export function Receipt(){
     const [searchParams, setSearchParams] = useSearchParams();
     try {
-        const data = JSON.parse(searchParams.get("data") || `null`)
+        const data = JSON.parse(searchParams.get("data") || `null`);
         if(data.receipt){
             return (
                 <div>
