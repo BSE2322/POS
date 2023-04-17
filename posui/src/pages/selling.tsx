@@ -7,10 +7,11 @@ import {
     productFactory,
     ConcreteSalesPerson,
     ConcreteProductNotifier,
-    PaymentContext, PayWithCash, PayWithCard, Cart, ConcreteCart, BarCodeReader, ConcreteBarCodeReader
+    PaymentContext, PayWithCash, PayWithCard, Cart, ConcreteCart, ConcreteBarCodeReader
 } from "../domain-lib/main";
 import logo from "../assets/images/logo.jpg";
 import {useNavigate} from "react-router-dom";
+import {Receipt} from "./receipt";
 
 function Selling() {
     const [name, setName] = useState(" ")
@@ -156,14 +157,24 @@ function Selling() {
             if(paymentMethod.localeCompare("cash") == 0){
                 console.log("used cash");
                 //@ts-ignore
-                paymentContext.executePayment(sum);
+                paymentContext.executePayment(total);
             }else if(paymentMethod.localeCompare("card") == 0){
                 console.log("use card");
                 paymentContext.setPaymentStrategy(new PayWithCard());
                 //@ts-ignore
-                paymentContext.executePayment(sum);
+                paymentContext.executePayment(total);
             }
-            return navigate("/receipt?data={\"receipt\":{\"items\":[{\"name\":\"Juice\",\"quantity\":4,\"price\":\"2344\"},{\"name\":\"Juice\",\"quantity\":4,\"price\":\"2344\"},{\"name\":\"Juice\",\"quantity\":4,\"price\":\"2344\"},{\"name\":\"Juice\",\"quantity\":4,\"price\":\"2344\"},{\"name\":\"Juice\",\"quantity\":4,\"price\":\"2344\"},{\"name\":\"Juice\",\"quantity\":4,\"price\":\"2344\"},{\"name\":\"Juice\",\"quantity\":4,\"price\":\"2344\"}]}}",{replace:true})
+            const receipt:any = []
+            //@ts-ignore
+            if(!items?.length < 1){
+                //@ts-ignore
+                items.map((e)=>{
+                    receipt.push({"name":e.name,"quantity":e.quantity,"price":e.price})
+                })
+            }else{
+                alert("Select Products and add to cart");
+            }
+            return navigate(`/receipt?data={"receipt":{"items":${JSON.stringify(receipt)}}}`,{replace:true})
         }
         alert("Please choose a payment method")
     }
@@ -206,7 +217,7 @@ function Selling() {
                                 <Form.Select style={{padding:"0.5em",fontFamily:"Mona Sans",margin:"0.5em",width:"10em",...inputStyle}} name="category" id="category" value={name} onChange={(e)=>setName(e.target.value)}>
                                     {selectedProducts && selectedProducts.map((item:Product)=>(
                                         //@ts-ignore
-                                        <option value={item.name!}>{item.name}</option>
+                                        <option onClick={(e)=>{setName(item.name)}} value={item.name!}>{item.name}</option>
                                     ))}
                                 </Form.Select>
                             </Form.Group>

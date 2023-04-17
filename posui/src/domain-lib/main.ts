@@ -1,7 +1,7 @@
 //Product interface
 export interface Product{
-    name: String;
-    type: String;
+    name: string;
+    type: string;
     price: number;
     quantity: number;
     addProduct():Boolean;
@@ -38,7 +38,7 @@ export class ProductCatalog{
 export class Electronic implements Product{
     name; type; price; quantity;
 
-    constructor(name:String,type:String,price:number,quantity:number){
+    constructor(name:string,type:string,price:number,quantity:number){
         this.name = name;
         this.type = type;
         this.price = price;
@@ -64,7 +64,7 @@ export class Electronic implements Product{
 export class Clothing implements Product{
     name; type; price; quantity;
 
-    constructor(name:String,type:String,price:number,quantity:number){
+    constructor(name:string,type:string,price:number,quantity:number){
         this.name = name;
         this.type = type;
         this.price = price;
@@ -90,7 +90,7 @@ export class Clothing implements Product{
 export class Groceries implements Product{
     name; type; price; quantity;
 
-    constructor(name:String,type:String,price:number,quantity:number){
+    constructor(name:string,type:string,price:number,quantity:number){
         this.name = name;
         this.type = type;
         this.price = price;
@@ -113,7 +113,7 @@ export class Groceries implements Product{
     }
 }
 
-export const productFactory = (name:String,type:String,price:number,quantity:number)=>{
+export const productFactory = (name:string,type:string,price:number,quantity:number)=>{
     switch(type){
         case "Clothing":
             return new Clothing(name,type,price,quantity);
@@ -156,7 +156,7 @@ export class ProductDecorator implements Product{
         return this.product.removeProduct();
     }
 
-    shipProduct(address:String){
+    shipProduct(address:string){
         console.log(`Product will be shipped to address ${address}`)
     }
 
@@ -283,3 +283,8 @@ export class ConcreteBarCodeReader implements BarCodeReader{
 
 }
 
+export interface ProductReceipt{
+    name:string
+    quantity:number
+    price:number
+}
