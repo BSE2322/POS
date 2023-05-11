@@ -10,7 +10,7 @@ import {
     PaymentContext, PayWithCash, PayWithCard, Cart, ConcreteCart, ConcreteBarCodeReader
 } from "../domain-lib/main";
 import logo from "../assets/images/logo.jpg";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Receipt} from "./receipt";
 
 function Selling() {
@@ -147,7 +147,6 @@ function Selling() {
             setItems([product])
         }
 
-
     }
 
     const handlePayment = (e:any)=>{
@@ -193,9 +192,9 @@ function Selling() {
         <div className="navbar">
             <a href="/"><img src={logo} alt="logo" width="100" /></a>
             <div>
-                <a className="nav-item" href="/sell-products"><button style={{backgroundColor:"green", borderRadius:"10px" }}>Sell Products</button></a>
-                <a className="nav-item" href="/manage-products"><button className="manage">Add Products</button></a>
-                <a className="nav-item" href="/"><button className="sell">Catalog</button></a>
+                <Link className="nav-item" to="/sell-products"><button className="catalog">Sell Products</button></Link>
+                <Link className="nav-item" to="/manage-products"><button className="manage">Add Products</button></Link>
+                <Link className="nav-item" to="/"><button className="catalog">Catalog</button></Link>
             </div>
         </div>
         <Container>
@@ -248,7 +247,7 @@ function Selling() {
                         </div>
                     </Form>
                     <div id="video-container">
-                        <Button id="initiateScan" style={{marginRight:"1em",display:"block"}} onClick={scanCode} type='submit' className='mt-5'>Scan Barcode</Button>
+                        <Button id="initiateScan" style={{marginRight:"1em",display:"block"}} onClick={scanCode} type='submit' className='mt-5 catalog'>Scan Barcode</Button>
                         <div>
                             <Button id="captureScan" style={{marginRight:"1em",display:"none", marginBottom:"2em"}} onClick={captureCode} type='submit' className='mt-5'>Capture Code</Button>
                             <Button id="addToCart" style={{marginRight:"1em",display:"none", marginBottom:"2em"}} onClick={addToCart} type='submit' className='mt-5'>Add To Cart</Button>

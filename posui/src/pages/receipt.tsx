@@ -9,7 +9,7 @@ export function Receipt(){
         if(data.receipt){
             let total = 0;
             data.receipt.items.map((e:any)=>{
-                total = e.price + total;
+                total = e.price * e.quantity + total;
             })
             return (
                 <div>
@@ -27,7 +27,7 @@ export function Receipt(){
                                 <h2>Contact Info</h2>
                                 <p>
                                     Address : Kanjokya, Kampala, 03882<br/>
-                                    Email   : carrerfourpos@gmail.com<br/>
+                                    Email   : macdonalds@gmail.com<br/>
                                     Phone   : +256(731) 343-8944<br/>
                                 </p>
                         </div>
@@ -60,7 +60,7 @@ export function Receipt(){
                 </div>{/*<!--End Table-->*/}
 
                 <div id="legalcopy">
-                    <p className="legal"><strong>Thank you for your business!</strong> </p>
+                    <p className="legal"><strong>Thank you!</strong> </p>
                 </div>
 
             </div>{/*<!--End InvoiceBot-->*/}

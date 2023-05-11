@@ -128,10 +128,10 @@ export const productFactory = (name:string,type:string,price:number,quantity:num
 
 // Decorator Pattern
 //@ts-ignore
-export class ProductDecorator implements Product{
-    protected product: Product;
+export class ProductDecorator implements Product {
+     product: Product;
      name;
-    protected type;
+     type;
      price;
      quantity;
 
@@ -165,13 +165,12 @@ export class ProductDecorator implements Product{
     }
 
     expressShip(){
-        console.log(``)
+        console.log(``);
     }
 
 }
 
-
-// Observer pattern for notifying the salesperson
+/* Observer pattern for notifying the salesperson */
 export interface SalesPerson {
     productAddedToCart(data:any):void;
 }
@@ -195,7 +194,9 @@ export class ConcreteProductNotifier implements ProductNotifier {
     }
 
     notify(data:any){
-        this.salespeople.forEach((salesperson)=> salesperson.productAddedToCart(data))
+        this.salespeople.forEach((salesperson)=>{
+            salesperson.productAddedToCart(data)
+        });
     }
 }
 

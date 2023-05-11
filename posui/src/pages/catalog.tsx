@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import { useEffect } from "react";
 import logo from "../assets/images/logo.jpg"
 import "../assets/styles/style.css"
+import {Link} from "react-router-dom";
 
 export default function Catalog() {
     const [products, setProducts] = useState<Array<object>>([{"name":"Test","type":"test","price":232,"quantity":2}]);
@@ -16,9 +17,9 @@ export default function Catalog() {
             <div className="navbar">
                 <a href="/"><img src={logo} alt="logo" width="100" /></a>
                 <div>
-                    <a className="nav-item" href="/sell-products"><button className="catalog">Sell Products</button></a>
-                    <a className="nav-item" href="/manage-products"><button className="manage">Add Products</button></a>
-                    <a className="nav-item" href="/"><button className="catalog">Catalog</button></a>
+                    <Link className="nav-item" to="/sell-products"><button className="catalog">Sell Products</button></Link>
+                    <Link className="nav-item" to="/manage-products"><button className="manage">Add Products</button></Link>
+                    <Link className="nav-item" to="/"><button className="catalog">Catalog</button></Link>
                 </div>
             </div>
 

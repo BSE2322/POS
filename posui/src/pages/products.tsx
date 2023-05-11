@@ -2,6 +2,7 @@ import React from "react";
 import { productFactory } from "../domain-lib/main";
 import logo from "../assets/images/logo.jpg"
 import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export default function Products() {
     const navigate = useNavigate();
@@ -25,9 +26,9 @@ export default function Products() {
             <div className="navbar">
                 <a href="/"><img src={logo} alt="logo" width="100" /></a>
                 <div>
-                    <a className="nav-item" href="/sell-products"><button className="catalog">Sell Products</button></a>
-                    <a className="nav-item" href="/manage-products"><button className="manage">Add Products</button></a>
-                    <a className="nav-item" href="/"><button className="catalog">Catalog</button></a>
+                    <Link className="nav-item" to="/sell-products"><button className="catalog">Sell Products</button></Link>
+                    <Link className="nav-item" to="/manage-products"><button className="manage">Add Products</button></Link>
+                    <Link className="nav-item" to="/"><button className="catalog">Catalog</button></Link>
                 </div>
             </div>
 
